@@ -519,6 +519,12 @@ select {
     backdrop-filter: blur(16px);
   }
 
+  @media (max-width: 640px) {
+    .hero-stat-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .split-heading-row {
     display: grid;
     gap: 16px;

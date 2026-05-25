@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   BadgeCheck,
@@ -79,15 +80,15 @@ const featuredProperties = [
 export default function HomePage(): React.ReactElement {
   return (
     <>
-      <section className="relative overflow-hidden bg-prime-black px-lg py-section text-on-dark">
+      <section className="relative overflow-hidden bg-prime-black px-md py-xl text-on-dark sm:px-lg sm:py-section">
         <div className="absolute inset-x-0 top-0 h-1 bg-accent-gold" />
-        <div className="section-container grid gap-xl lg:grid-cols-[minmax(0,1fr)_minmax(440px,0.88fr)] lg:items-center">
+        <div className="section-container grid gap-lg lg:grid-cols-[minmax(0,1fr)_minmax(440px,0.88fr)] lg:items-center lg:gap-xl">
           <div className="content-measure animate-rise">
             <span className="brand-pill inline-flex items-center gap-xs rounded-full border border-white/10 bg-white/5 px-sm py-xs text-caption font-semibold uppercase text-accent-gold backdrop-blur-md">
               <Sparkles aria-hidden="true" size={15} />
               Prime Property Indonesia
             </span>
-            <h1 className="mt-lg text-display-lg text-on-dark md:text-display-xl">
+            <h1 className="mt-lg text-display-md text-on-dark sm:text-display-lg md:text-display-xl">
               Real estate advisory untuk properti bernilai tinggi.
             </h1>
             <p className="copy-measure on-dark-copy mt-md text-body-md md:text-body-lg">
@@ -95,11 +96,11 @@ export default function HomePage(): React.ReactElement {
               ringkas, harga jelas, dan pendampingan agent profesional.
             </p>
             <div className="mt-lg flex flex-col gap-sm sm:flex-row">
-              <Link className="btn-primary animated-cta gap-xs" href="/contact">
+              <Link className="btn-primary animated-cta w-full gap-xs sm:w-auto" href="/contact">
                 <span>Konsultasi Sekarang</span>
                 <ArrowRight aria-hidden="true" size={18} />
               </Link>
-              <Link className="btn-outline-gold" href="/about">
+              <Link className="btn-outline-gold w-full sm:w-auto" href="/about">
                 Tentang Prime
               </Link>
             </div>
@@ -117,9 +118,9 @@ export default function HomePage(): React.ReactElement {
             </div>
           </div>
 
-          <div className="glass-panel animate-rise animation-delay-2 p-md sm:p-lg">
+          <div className="glass-panel animate-rise animation-delay-2 p-sm sm:p-lg">
             <div className="rounded-2xl border border-white/10 bg-prime-black-soft p-lg">
-              <div className="flex items-start justify-between gap-md">
+              <div className="flex flex-col gap-md sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="on-dark-muted text-caption">Portfolio Highlight</p>
                   <p className="mt-xs text-display-md text-accent-gold">
@@ -137,7 +138,7 @@ export default function HomePage(): React.ReactElement {
                   ["Tanah Komersial", "Canggu", "Rp 6.300.000.000"],
                 ].map(([name, area, price]) => (
                   <div
-                    className="portfolio-row flex items-center justify-between gap-md rounded-xl border border-white/10 bg-white/[0.04] px-md py-sm"
+                    className="portfolio-row flex flex-col gap-sm rounded-xl border border-white/10 bg-white/[0.04] px-md py-sm sm:flex-row sm:items-center sm:justify-between sm:gap-md"
                     key={name}
                   >
                     <div>
@@ -151,7 +152,7 @@ export default function HomePage(): React.ReactElement {
                   </div>
                 ))}
               </div>
-              <div className="mt-lg grid grid-cols-3 gap-sm border-t border-white/10 pt-lg text-center">
+              <div className="mt-lg grid grid-cols-1 gap-sm border-t border-white/10 pt-lg text-center sm:grid-cols-3">
                 {[
                   ["Rumah", "Hunian"],
                   ["Villa", "Premium"],
@@ -168,7 +169,7 @@ export default function HomePage(): React.ReactElement {
         </div>
       </section>
 
-      <section className="bg-surface-card px-lg py-section">
+      <section className="bg-surface-card px-md py-xl sm:px-lg sm:py-section">
         <div className="section-container">
           <div className="split-heading-row animate-rise mb-lg">
             <div>
@@ -201,7 +202,7 @@ export default function HomePage(): React.ReactElement {
         </div>
       </section>
 
-      <section className="bg-soft-gray px-lg py-section">
+      <section className="bg-soft-gray px-md py-xl sm:px-lg sm:py-section">
         <div className="section-container grid gap-xl lg:grid-cols-[380px_minmax(0,1fr)] lg:items-start">
           <div className="content-measure">
             <p className="section-kicker">Layanan</p>
@@ -261,7 +262,7 @@ export default function HomePage(): React.ReactElement {
         </div>
       </section>
 
-      <section className="bg-surface-card px-lg py-section">
+      <section className="bg-surface-card px-md py-xl sm:px-lg sm:py-section">
         <div className="section-container">
           <div className="mb-lg content-measure">
             <p className="section-kicker">Tipe Properti</p>
@@ -286,7 +287,7 @@ export default function HomePage(): React.ReactElement {
         </div>
       </section>
 
-      <section className="bg-soft-gray px-lg py-section">
+      <section className="bg-soft-gray px-md py-xl sm:px-lg sm:py-section">
         <div className="section-container">
           <div className="split-heading-row mb-lg">
             <div>
@@ -296,7 +297,7 @@ export default function HomePage(): React.ReactElement {
               </h2>
             </div>
             <div className="flex md:justify-end">
-              <Link className="btn-outline-dark gap-xs" href="/contact">
+              <Link className="btn-outline-dark w-full gap-xs sm:w-auto" href="/contact">
                 <span>Hubungi Agent</span>
                 <ArrowRight aria-hidden="true" size={16} />
               </Link>
@@ -306,7 +307,7 @@ export default function HomePage(): React.ReactElement {
         </div>
       </section>
 
-      <section className="bg-prime-black px-lg py-section text-on-dark">
+      <section className="bg-prime-black px-md py-xl text-on-dark sm:px-lg sm:py-section">
         <div className="section-container grid gap-xl lg:grid-cols-[380px_minmax(0,1fr)] lg:items-center">
           <div className="content-measure">
             <p className="section-kicker">Cara Kerja</p>
@@ -330,7 +331,7 @@ export default function HomePage(): React.ReactElement {
         </div>
       </section>
 
-      <section className="bg-soft-gray px-lg py-section">
+      <section className="bg-soft-gray px-md py-xl sm:px-lg sm:py-section">
         <div className="section-container grid gap-xl lg:grid-cols-[420px_minmax(0,1fr)] lg:items-start">
           <div className="content-measure">
             <p className="section-kicker">Area Fokus</p>
@@ -359,9 +360,18 @@ export default function HomePage(): React.ReactElement {
         </div>
       </section>
 
-      <section className="bg-surface-card px-lg py-section">
-        <div className="section-container flex flex-col gap-lg rounded-2xl bg-prime-black p-xl text-on-dark md:flex-row md:items-center md:justify-between">
+      <section className="bg-surface-card px-md py-xl sm:px-lg sm:py-section">
+        <div className="section-container flex flex-col gap-lg rounded-2xl bg-prime-black p-lg text-on-dark sm:p-xl md:flex-row md:items-center md:justify-between">
           <div>
+            <span className="mb-md inline-flex rounded-xl bg-logo-surface px-md py-sm">
+              <Image
+                className="h-auto w-[140px]"
+                src="/logo.png"
+                alt="Prime Property"
+                width={280}
+                height={94}
+              />
+            </span>
             <p className="text-caption font-semibold uppercase text-accent-gold">
               Siap mulai?
             </p>
@@ -369,7 +379,7 @@ export default function HomePage(): React.ReactElement {
               Dapatkan shortlist properti yang sesuai kebutuhan Anda.
             </h2>
           </div>
-          <Link className="btn-primary gap-xs shrink-0" href="/contact">
+          <Link className="btn-primary w-full gap-xs shrink-0 sm:w-auto" href="/contact">
             <span>Hubungi Prime</span>
             <ArrowRight aria-hidden="true" size={18} />
           </Link>
