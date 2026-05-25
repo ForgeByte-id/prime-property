@@ -1,14 +1,22 @@
 import type { ReactNode } from "react";
-import { PublicFooter } from "@/components/public/PublicFooter";
 import { PublicHeader } from "@/components/public/PublicHeader";
+import { PublicFooter } from "@/components/public/PublicFooter";
+
+interface PublicLayoutProps {
+  children: ReactNode;
+}
 
 export default function PublicLayout({
   children,
-}: Readonly<{ children: ReactNode }>): React.ReactElement {
+}: PublicLayoutProps): React.ReactElement {
   return (
-    <div className="flex min-h-screen flex-col bg-surface-card">
+    <div className="min-h-screen bg-background text-text-primary">
       <PublicHeader />
-      <main className="flex-1">{children}</main>
+
+      <main className="public-page-animate">
+        {children}
+      </main>
+
       <PublicFooter />
     </div>
   );

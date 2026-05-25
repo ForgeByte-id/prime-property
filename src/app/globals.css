@@ -111,7 +111,13 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    var(--font-geist-sans),
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 button,
@@ -571,5 +577,111 @@ select {
       grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
       align-items: end;
     }
+  }
+}
+
+@keyframes primeTextFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes primeTextFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.public-page-animate
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    small,
+    label,
+    li,
+    a,
+    button,
+    input,
+    textarea,
+    select
+  ) {
+  animation-name: primeTextFadeUp;
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.public-page-animate :where(h1) {
+  animation-delay: 40ms;
+}
+
+.public-page-animate :where(h2) {
+  animation-delay: 80ms;
+}
+
+.public-page-animate :where(h3, h4, h5, h6) {
+  animation-delay: 120ms;
+}
+
+.public-page-animate :where(p, li, label, small) {
+  animation-delay: 160ms;
+}
+
+.public-page-animate :where(a, button, input, textarea, select) {
+  animation-delay: 200ms;
+}
+
+.public-page-animate :where(img, svg) {
+  animation-name: primeTextFadeIn;
+  animation-duration: 520ms;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+  animation-delay: 120ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .public-page-animate
+    :where(
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      span,
+      small,
+      label,
+      li,
+      a,
+      button,
+      input,
+      textarea,
+      select,
+      img,
+      svg
+    ) {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   BadgeCheck,
@@ -363,15 +362,6 @@ export default function HomePage(): React.ReactElement {
       <section className="bg-surface-card px-md py-xl sm:px-lg sm:py-section">
         <div className="section-container flex flex-col gap-lg rounded-2xl bg-prime-black p-lg text-on-dark sm:p-xl md:flex-row md:items-center md:justify-between">
           <div>
-            <span className="mb-md inline-flex rounded-xl bg-logo-surface px-md py-sm">
-              <Image
-                className="h-auto w-[140px]"
-                src="/logo.png"
-                alt="Prime Property"
-                width={280}
-                height={94}
-              />
-            </span>
             <p className="text-caption font-semibold uppercase text-accent-gold">
               Siap mulai?
             </p>
