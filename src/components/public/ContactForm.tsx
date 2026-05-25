@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Send } from "lucide-react";
+import { CSRF_HEADER_NAME } from "@/lib/security/csrf";
+import { getClientCsrfToken } from "@/lib/security/client-csrf";
 
 export function ContactForm(): React.ReactElement {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -11,7 +13,10 @@ export function ContactForm(): React.ReactElement {
     const formData = new FormData(event.currentTarget);
     const response = await fetch("/api/contact", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        [CSRF_HEADER_NAME]: getClientCsrfToken(),
+      },
       body: JSON.stringify(Object.fromEntries(formData)),
     });
 

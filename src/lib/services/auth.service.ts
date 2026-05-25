@@ -9,6 +9,7 @@ interface UserRecord {
   role: UserRole;
   is_active: boolean;
   failed_login_attempts: number;
+  failed_login_window_started_at: string | null;
   locked_until: string | null;
 }
 
@@ -24,7 +25,7 @@ export async function authenticateUser(email: string, password: string): Promise
   const supabase = createSupabaseAdminClient();
   const { data, error } = await supabase
     .from("internal_users")
-    .select("id,email,password_hash,role,is_active,failed_login_attempts,locked_until")
+    .select("id,email,password_hash,role,is_active,failed_login_attempts,failed_login_window_started_at,locked_until")
     .eq("email", email.toLowerCase())
     .single<UserRecord>();
 
@@ -38,10 +39,16 @@ export async function authenticateUser(email: string, password: string): Promise
 
   const passwordMatches = await bcrypt.compare(password, data.password_hash);
   if (!passwordMatches) {
-    const failedAttempts = data.failed_login_attempts + 1;
+    const now = Date.now();
+    const windowStartedAt = data.failed_login_window_started_at
+      ? new Date(data.failed_login_window_started_at).getTime()
+      : null;
+    const isInsideFailureWindow =
+      windowStartedAt !== null && now - windowStartedAt <= FAILURE_WINDOW_MINUTES * 60 * 1000;
+    const failedAttempts = isInsideFailureWindow ? data.failed_login_attempts + 1 : 1;
     const lockedUntil =
       failedAttempts >= MAX_FAILED_ATTEMPTS
-        ? new Date(Date.now() + LOCKOUT_MINUTES * 60 * 1000).toISOString()
+        ? new Date(now + LOCKOUT_MINUTES * 60 * 1000).toISOString()
         : null;
 
     await supabase
@@ -49,7 +56,9 @@ export async function authenticateUser(email: string, password: string): Promise
       .update({
         failed_login_attempts: failedAttempts,
         locked_until: lockedUntil,
-        failed_login_window_started_at: new Date(Date.now() - FAILURE_WINDOW_MINUTES * 60 * 1000).toISOString(),
+        failed_login_window_started_at: isInsideFailureWindow
+          ? data.failed_login_window_started_at
+          : new Date(now).toISOString(),
       })
       .eq("id", data.id);
 
@@ -61,6 +70,7 @@ export async function authenticateUser(email: string, password: string): Promise
     .update({
       failed_login_attempts: 0,
       locked_until: null,
+      failed_login_window_started_at: null,
       last_login_at: new Date().toISOString(),
     })
     .eq("id", data.id);

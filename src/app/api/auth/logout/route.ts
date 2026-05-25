@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSessionCookieName } from "@/lib/auth/session";
 
 export async function POST(): Promise<NextResponse> {
-  const response = NextResponse.redirect(new URL("/agent/login", process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"));
+  const response = NextResponse.redirect(new URL("/agent/login?toast=logout_success", process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"));
   response.cookies.set(getSessionCookieName(), "", {
     httpOnly: true,
     sameSite: "lax",

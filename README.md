@@ -42,7 +42,7 @@ cp .env.local.example .env.local
 
 ```bash
 # Run the migration SQL in the Supabase SQL editor
-# File: src/lib/db/client.ts -> DATABASE_SCHEMA
+# File: supabase/migrations/202605250001_initial_schema.sql
 
 # Copy the full SQL and run it in the Supabase dashboard:
 # https://supabase.com/dashboard/project/YOUR-PROJECT/sql
@@ -59,10 +59,11 @@ supabase migration up
 ### 4. Seed Dummy Data (Optional)
 
 ```bash
-# Seed script:
-# scripts/seed.js
+# Seed SQL:
+# supabase/seeders/seed.sql
 
 # Run:
+# For cloud Supabase, paste supabase/seeders/seed.sql into SQL Editor and run.
 npm run db:seed
 ```
 
@@ -144,8 +145,8 @@ Before production, verify:
 - [ ] All API routes enforce backend authorization
 - [ ] Session cookie uses httpOnly + Secure + SameSite=Lax
 - [ ] Passwords are hashed with bcrypt cost >= 10
-- [ ] CSRF protection is enabled on all mutations
-- [ ] Rate limiting is implemented
+- [x] CSRF protection is enabled on all mutations
+- [x] Rate limiting is implemented
 - [ ] Input validation uses Zod
 - [ ] Output is HTML-escaped (React default)
 - [ ] Environment variables are not committed
@@ -244,13 +245,13 @@ npm run dev
 
 **Admin User:**
 
-- Email: `admin@primeproperty.id`
-- Password: `AdminPassword123` (set during setup)
+- Email: `admin@primeproperty.test`
+- Password: `Prime@2026`
 
 **Superadmin User:**
 
-- Email: `superadmin@primeproperty.id`
-- Password: `SuperadminPassword123` (set during setup)
+- Email: `superadmin@primeproperty.test`
+- Password: `Prime@2026`
 
 _These are examples. Set actual credentials in production._
 
@@ -331,6 +332,16 @@ npm run dev
    - Load test with 1000+ properties
 
 ---
+
+#### Creds
+
+1. Superadmin
+   email: superadmin@primeproperty.test
+   password: Prime@2026
+
+2. Admin
+   email: admin@primeproperty.test
+   password: Prime@2026
 
 **Last Updated:** May 25, 2026  
 **Status:** Foundation Complete | Ready for Feature Development

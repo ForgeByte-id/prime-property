@@ -65,7 +65,6 @@ values
   null,
   null,
   null,
-  null,
   now(),
   now()
 )

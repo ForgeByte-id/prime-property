@@ -1,15 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { LockKeyhole, TableProperties, UserRoundCheck } from "lucide-react";
 import { LoginForm } from "@/components/internal/LoginForm";
+import { getSessionFromCookie } from "@/lib/auth/session";
+import { ToastBridge } from "@/components/common/ToastBridge";
 
 export const metadata = {
   title: "Login Agent",
 };
 
-export default function LoginPage(): React.ReactElement {
+export default async function LoginPage(): Promise<React.ReactElement> {
+  const cookieStore = await cookies();
+  const user = await getSessionFromCookie(cookieStore.get("pp_session")?.value);
+  if (user) redirect("/agent/dashboard");
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-soft-gray px-md py-xl sm:px-lg">
+      <ToastBridge />
       <section className="grid w-full max-w-[980px] overflow-hidden rounded-2xl border border-border-default bg-neutral-white shadow-md lg:grid-cols-[390px_1fr]">
         <div className="relative hidden min-h-[560px] bg-prime-black p-xl text-on-dark lg:flex lg:flex-col">
           <div className="absolute inset-x-0 top-0 h-1 bg-accent-gold" />

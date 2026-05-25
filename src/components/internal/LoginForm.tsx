@@ -2,6 +2,8 @@
 
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { CSRF_HEADER_NAME } from "@/lib/security/csrf";
+import { getClientCsrfToken } from "@/lib/security/client-csrf";
 
 export function LoginForm(): React.ReactElement {
   const [error, setError] = useState<string | null>(null);
@@ -17,12 +19,15 @@ export function LoginForm(): React.ReactElement {
       const formData = new FormData(event.currentTarget);
       const response = await fetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          [CSRF_HEADER_NAME]: getClientCsrfToken(),
+        },
         body: JSON.stringify(Object.fromEntries(formData)),
       });
 
       if (response.ok) {
-        window.location.assign("/agent/dashboard");
+        window.location.assign("/agent/dashboard?toast=login_success");
         return;
       }
 

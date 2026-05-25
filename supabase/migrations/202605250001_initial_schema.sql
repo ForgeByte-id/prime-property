@@ -1,12 +1,41 @@
 create extension if not exists "pgcrypto";
 
-create type user_role as enum ('admin', 'superadmin');
-create type property_status as enum ('in_stock', 'sold_out', 'reserved');
-create type property_type as enum ('Rumah', 'Villa', 'Tanah', 'Ruko', 'Apartemen');
-create type siap_status as enum ('Siap Huni', 'Indent', 'Renovasi');
-create type audit_action as enum ('create', 'update', 'soft_delete', 'login', 'logout');
+do $$
+begin
+  create type user_role as enum ('admin', 'superadmin');
+exception
+  when duplicate_object then null;
+end $$;
 
-create table internal_users (
+do $$
+begin
+  create type property_status as enum ('in_stock', 'sold_out', 'reserved');
+exception
+  when duplicate_object then null;
+end $$;
+
+do $$
+begin
+  create type property_type as enum ('Rumah', 'Villa', 'Tanah', 'Ruko', 'Apartemen');
+exception
+  when duplicate_object then null;
+end $$;
+
+do $$
+begin
+  create type siap_status as enum ('Siap Huni', 'Indent', 'Renovasi');
+exception
+  when duplicate_object then null;
+end $$;
+
+do $$
+begin
+  create type audit_action as enum ('create', 'update', 'soft_delete', 'login', 'logout');
+exception
+  when duplicate_object then null;
+end $$;
+
+create table if not exists internal_users (
   id uuid primary key default gen_random_uuid(),
   email text not null unique,
   password_hash text not null,
@@ -20,7 +49,7 @@ create table internal_users (
   updated_at timestamptz not null default now()
 );
 
-create table properties (
+create table if not exists properties (
   id uuid primary key default gen_random_uuid(),
   nama_property text not null check (length(nama_property) >= 3),
   property_group text not null,
@@ -44,7 +73,7 @@ create table properties (
   deleted_at timestamptz
 );
 
-create table contact_messages (
+create table if not exists contact_messages (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null,
@@ -55,7 +84,7 @@ create table contact_messages (
   created_at timestamptz not null default now()
 );
 
-create table audit_logs (
+create table if not exists audit_logs (
   id uuid primary key default gen_random_uuid(),
   actor_user_id uuid not null references internal_users(id),
   entity_type text not null,
@@ -68,15 +97,15 @@ create table audit_logs (
   created_at timestamptz not null default now()
 );
 
-create index properties_search_idx on properties using gin (
+create index if not exists properties_search_idx on properties using gin (
   to_tsvector('simple', nama_property || ' ' || property_group || ' ' || kawasan)
 );
-create index properties_kawasan_idx on properties(kawasan) where deleted_at is null;
-create index properties_price_idx on properties(price_rupiah) where deleted_at is null;
-create index properties_status_idx on properties(status) where deleted_at is null;
-create index properties_tipe_idx on properties(tipe) where deleted_at is null;
-create index properties_featured_idx on properties(is_featured, created_at desc) where deleted_at is null;
-create index audit_logs_actor_created_idx on audit_logs(actor_user_id, created_at desc);
+create index if not exists properties_kawasan_idx on properties(kawasan) where deleted_at is null;
+create index if not exists properties_price_idx on properties(price_rupiah) where deleted_at is null;
+create index if not exists properties_status_idx on properties(status) where deleted_at is null;
+create index if not exists properties_tipe_idx on properties(tipe) where deleted_at is null;
+create index if not exists properties_featured_idx on properties(is_featured, created_at desc) where deleted_at is null;
+create index if not exists audit_logs_actor_created_idx on audit_logs(actor_user_id, created_at desc);
 
 alter table internal_users enable row level security;
 alter table properties enable row level security;

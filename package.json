@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "type-check": "tsc --noEmit",
-    "db:migrate": "supabase migration up",
-    "db:seed": "node scripts/seed.js"
+    "db:migrate": "supabase db push",
+    "db:seed": "echo \"Run supabase/seeders/seed.sql in the Supabase SQL Editor for cloud projects.\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.0",

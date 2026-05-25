@@ -14,7 +14,7 @@ interface AuditInput {
 
 export async function recordAuditLog(input: AuditInput): Promise<void> {
   const supabase = createSupabaseAdminClient();
-  await supabase.from("audit_logs").insert({
+  const { error } = await supabase.from("audit_logs").insert({
     actor_user_id: input.actorUserId,
     entity_type: input.entityType,
     entity_id: input.entityId,
@@ -24,4 +24,6 @@ export async function recordAuditLog(input: AuditInput): Promise<void> {
     ip_address: input.ipAddress,
     user_agent: input.userAgent,
   });
+
+  if (error) throw new Error(error.message);
 }

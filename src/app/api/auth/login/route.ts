@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSessionToken, getSessionCookieName, getSessionMaxAgeSeconds } from "@/lib/auth/session";
 import { authenticateUser } from "@/lib/services/auth.service";
 import { LoginSchema } from "@/lib/validation";
-import { handleApiError } from "@/lib/utils/http";
+import { assertRateLimit } from "@/lib/security/rate-limit";
+import { getClientIp, handleApiError } from "@/lib/utils/http";
 
 export const runtime = "nodejs";
 
@@ -10,6 +11,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
     const credentials = LoginSchema.parse(body);
+    assertRateLimit({
+      key: `auth:${getClientIp(request.headers)}`,
+      limit: 10,
+      windowMs: 60 * 1000,
+    });
     const result = await authenticateUser(credentials.email, credentials.password);
 
     if (!result.success) {

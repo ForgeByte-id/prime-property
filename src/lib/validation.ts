@@ -34,8 +34,21 @@ export const ContactMessageSchema = z.object({
   message: z.string().trim().min(10, "Pesan minimal 10 karakter").max(2000, "Pesan terlalu panjang"),
 });
 
+export const AdminCreateSchema = z.object({
+  email: z.string().trim().email("Email tidak valid").max(255, "Email terlalu panjang"),
+  password: z.string().min(8, "Password minimal 8 karakter").max(128, "Password terlalu panjang"),
+});
+
+export const AdminStatusSchema = z.object({
+  isActive: z.boolean(),
+});
+
+export const AdminResetPasswordSchema = z.object({
+  password: z.string().min(8, "Password minimal 8 karakter").max(128, "Password terlalu panjang"),
+});
+
 export const PropertyCreateSchema = z.object({
-  namaProperty: z.string().trim().min(3, "Nama properti minimal 3 karakter").max(140, "Nama properti terlalu panjang"),
+  namaProperty: z.string().trim().min(3, "Nama properti minimal 3 karakter").max(100, "Nama properti terlalu panjang"),
   group: z.string().trim().min(2, "Group minimal 2 karakter").max(80, "Group terlalu panjang"),
   lebarMeter: z.coerce.number().positive("Lebar harus lebih dari 0").multipleOf(0.01, "Lebar maksimal 2 desimal"),
   panjangMeter: z.coerce.number().positive("Panjang harus lebih dari 0").multipleOf(0.01, "Panjang maksimal 2 desimal"),
@@ -53,16 +66,27 @@ export const PropertyCreateSchema = z.object({
 });
 
 export const PropertyQuerySchema = z.object({
+  q: z.string().trim().max(120).optional(),
   search: z.string().trim().max(120).optional(),
   kawasan: z.string().trim().optional(),
+  lebarMin: z.coerce.number().positive().optional(),
+  lebar_min: z.coerce.number().positive().optional(),
   hadap: z.string().trim().optional(),
   hargaMax: bigintRupiahSchema.optional(),
+  price_max: bigintRupiahSchema.optional(),
   tipe: z.string().trim().optional(),
   status: z.string().trim().optional(),
   siap: z.string().trim().optional(),
   carportMin: z.coerce.number().int().min(0).optional(),
+  carport: z.coerce.number().int().min(0).optional(),
   page: z.coerce.number().int().min(1).default(1),
-  perPage: z.coerce.number().int().refine((value) => [25, 50, 100].includes(value), "Per page harus 25, 50, atau 100").default(50),
+  perPage: z.coerce.number().int().refine((value) => [10, 20, 50, 100].includes(value), "Per page harus 10, 20, 50, atau 100").default(10),
+  per_page: z.coerce.number().int().refine((value) => [10, 20, 50, 100].includes(value), "Per page harus 10, 20, 50, atau 100").optional(),
+  sortBy: z.enum(["nama_property", "price_rupiah", "created_at", "status"]).default("created_at"),
+  sort_by: z.enum(["nama_property", "price", "price_rupiah", "created_at", "status"]).optional(),
+  sortDir: z.enum(["asc", "desc"]).default("desc"),
+  sort_dir: z.enum(["asc", "desc"]).optional(),
 });
 
 export type PropertyCreateInput = z.infer<typeof PropertyCreateSchema>;
+export type PropertyQueryInput = z.infer<typeof PropertyQuerySchema>;
