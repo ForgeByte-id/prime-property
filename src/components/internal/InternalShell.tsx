@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import {
@@ -33,8 +34,15 @@ export async function InternalShell({
       <ToastBridge />
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-accent-gold/10 bg-prime-black text-on-dark md:flex">
         <div className="flex items-center gap-sm border-b border-white/10 p-md">
-          <div className="flex h-8 w-8 items-center justify-center rounded bg-accent-gold text-sm font-black text-prime-black shadow-md">
-            P
+          <div className="flex h-9 w-9 items-center justify-center rounded bg-white shadow-md">
+            <Image
+              alt="Prime Property"
+              className="h-7 w-7 object-contain"
+              height={28}
+              src="/logo-without-text-no-bg.png"
+              width={28}
+              priority
+            />
           </div>
           <div>
             <h2 className="text-caption font-bold tracking-[0.28em] text-on-dark">PRIME</h2>
