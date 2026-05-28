@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,6 +13,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+const themeInitScript = `
+try {
+  var t = localStorage.getItem('prime-theme');
+  if (t === 'dark') {
+    document.documentElement.dataset.theme = 'dark';
+  }
+} catch (e) {}
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://prime-property-fawn.vercel.app"),
@@ -30,7 +38,13 @@ export const metadata: Metadata = {
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
   },
   appleWebApp: {
     capable: true,
@@ -48,7 +62,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): React.ReactElement {
   return (
     <html
       lang="id"
@@ -56,11 +70,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full bg-background text-foreground">
-        <Script id="prime-theme-init" strategy="beforeInteractive">
-          {
-            "try{var t=localStorage.getItem('prime-theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}"
-          }
-        </Script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: themeInitScript,
+          }}
+        />
         {children}
       </body>
     </html>

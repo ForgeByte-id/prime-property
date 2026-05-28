@@ -24,7 +24,7 @@ export function PublicFooter(): React.ReactElement {
               />
             </span>
 
-            <p className="on-dark-copy mt-sm max-w-sm text-body-sm leading-relaxed">
+            <p className="on-dark-copy text-body-md md:text-body-lg my-md text-white/74">
               Konsultan properti modern dengan data listing yang rapi,
               transparan, dan siap ditindaklanjuti.
             </p>

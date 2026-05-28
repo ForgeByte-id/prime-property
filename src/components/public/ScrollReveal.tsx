@@ -15,29 +15,62 @@ export function ScrollReveal({
 
   useEffect(() => {
     const element = elementRef.current;
-    if (!element) return;
+
+    if (!element) {
+      return;
+    }
+
+    let observer: IntersectionObserver | null = null;
+    let isDisposed = false;
+
+    const reveal = (): void => {
+      if (isDisposed) {
+        return;
+      }
+
+      if (element.dataset.revealed !== "true") {
+        element.dataset.revealed = "true";
+      }
+    };
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-      element.dataset.revealed = "true";
+      reveal();
       return;
     }
 
-    const observer = new IntersectionObserver(
+    observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        element.dataset.revealed = "true";
-        observer.disconnect();
+        if (!entry?.isIntersecting) {
+          return;
+        }
+
+        reveal();
+        observer?.unobserve(element);
+        observer?.disconnect();
+        observer = null;
       },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+      {
+        root: null,
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.12,
+      },
     );
 
     observer.observe(element);
 
-    return () => observer.disconnect();
+    return () => {
+      isDisposed = true;
+
+      if (observer) {
+        observer.unobserve(element);
+        observer.disconnect();
+        observer = null;
+      }
+    };
   }, []);
 
   return (

@@ -21,13 +21,15 @@ test("AC-10.1 requires core public and internal pages to exist", () => {
     "src/app/(auth)/agent/(portal)/properties/[id]/edit/page.tsx",
     "src/app/(auth)/agent/(portal)/admins/page.tsx",
     "src/app/(auth)/agent/(portal)/audit-logs/page.tsx",
-  ].forEach((path) => assert.equal(existsSync(join(root, path)), true, `${path} must exist`));
+  ].forEach((path) =>
+    assert.equal(existsSync(join(root, path)), true, `${path} must exist`),
+  );
 });
 
 test("AC-10.1 verifies backend authorization blocks admin CRUD", () => {
   const propertiesRoute = read("src/app/api/properties/route.ts");
   const propertyByIdRoute = read("src/app/api/properties/[id]/route.ts");
-  const middleware = read("src/middleware.ts");
+  const proxy = read("src/proxy.ts");
   const rbac = read("src/lib/auth/rbac.ts");
 
   assert.match(rbac, /mutationRoles.*superadmin/s);
@@ -35,19 +37,19 @@ test("AC-10.1 verifies backend authorization blocks admin CRUD", () => {
   assert.match(propertyByIdRoute, /canMutateProperty\(user\).*403/s);
   assert.match(propertyByIdRoute, /export async function PATCH/);
   assert.match(propertyByIdRoute, /export async function DELETE/);
-  assert.match(middleware, /unsafeMethods/);
-  assert.match(middleware, /status:\s*403/);
+  assert.match(proxy, /unsafeMethods/);
+  assert.match(proxy, /status:\s*403/);
 });
 
 test("AC-10.1 verifies security controls for mutation endpoints", () => {
-  const middleware = read("src/middleware.ts");
+  const proxy = read("src/proxy.ts");
   const csrf = read("src/lib/security/csrf.ts");
   const rateLimit = read("src/lib/security/rate-limit.ts");
   const loginRoute = read("src/app/api/auth/login/route.ts");
   const contactRoute = read("src/app/api/contact/route.ts");
 
   assert.match(csrf, /CSRF_HEADER_NAME/);
-  assert.match(middleware, /validateCsrfToken/);
+  assert.match(proxy, /validateCsrfToken/);
   assert.match(rateLimit, /RateLimitError/);
   assert.match(loginRoute, /assertRateLimit/);
   assert.match(contactRoute, /assertRateLimit/);
@@ -55,12 +57,17 @@ test("AC-10.1 verifies security controls for mutation endpoints", () => {
 
 test("AC-10.1 verifies seed contains demo users and at least 50 dummy properties", () => {
   const seed = read("supabase/seeders/seed.sql");
-  const propertyTupleCount = (seed.match(/\(\n\s*'[0-9a-f-]{36}',\n\s*'[^']+',\n\s*'[^']+',\n\s*[0-9]/g) ?? []).length;
+  const propertyTupleCount = (
+    seed.match(/\(\n\s*'[0-9a-f-]{36}',\n\s*'[^']+',\n\s*'[^']+',\n\s*[0-9]/g) ?? []
+  ).length;
 
   assert.match(seed, /superadmin@primeproperty\.test/);
   assert.match(seed, /admin@primeproperty\.test/);
   assert.match(seed, /crypt\('Prime@2026', gen_salt\('bf', 10\)\)/);
-  assert.ok(propertyTupleCount >= 50, `expected at least 50 property tuples, got ${propertyTupleCount}`);
+  assert.ok(
+    propertyTupleCount >= 50,
+    `expected at least 50 property tuples, got ${propertyTupleCount}`,
+  );
 });
 
 test("AC-10.1 verifies search, filters, pagination, sorting, and datatable UI exist", () => {
