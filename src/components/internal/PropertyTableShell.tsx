@@ -64,7 +64,7 @@ function statusBadgeClass(status: string): string {
 export function PropertyTableShell({ canCreate }: PropertyTableShellProps): React.ReactElement {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState<10 | 20 | 50 | 100>(10);
+  const [perPage, setPerPage] = useState<25 | 50 | 100>(50);
   const [sortBy, setSortBy] = useState<SortBy>("created_at");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [kawasan, setKawasan] = useState("");
@@ -157,6 +157,28 @@ export function PropertyTableShell({ canCreate }: PropertyTableShellProps): Reac
   const totalValue = properties.reduce((sum, property) => sum + BigInt(property.priceRupiah), 0n);
   const totalPages = Math.max(response?.meta.totalPages ?? 1, 1);
   const paginationPages = getPaginationPages(page, totalPages);
+  const activeFilters = [
+    query.trim() ? `Search: ${query.trim()}` : null,
+    kawasan ? `Kawasan: ${kawasan}` : null,
+    lebarMin ? `Lebar min: ${lebarMin} m` : null,
+    priceMax ? `Harga max: ${priceMax}` : null,
+    tipe ? `Tipe: ${tipe}` : null,
+    status ? `Status: ${status}` : null,
+    carport ? `Carport: ${carport === "1" ? "Tersedia" : "Tidak ada"}` : null,
+    siap ? `Siap: ${siap}` : null,
+  ].filter((filterLabel): filterLabel is string => Boolean(filterLabel));
+
+  function resetFilters(): void {
+    setPage(1);
+    setQuery("");
+    setKawasan("");
+    setLebarMin("");
+    setPriceMax("");
+    setTipe("");
+    setStatus("");
+    setCarport("");
+    setSiap("");
+  }
 
   return (
     <div className="space-y-lg">
@@ -263,19 +285,31 @@ export function PropertyTableShell({ canCreate }: PropertyTableShellProps): Reac
           </label>
         </div>
 
-        <div className="flex flex-col gap-sm border-t border-soft-gray pt-md sm:flex-row sm:items-center sm:justify-between">
+          {activeFilters.length > 0 ? (
+            <div className="flex flex-wrap items-center gap-xs border-t border-soft-gray pt-md">
+              {activeFilters.map((filterLabel) => (
+                <span className="rounded-full bg-accent-gold-soft px-sm py-1 text-xs font-semibold text-prime-black" key={filterLabel}>
+                  {filterLabel}
+                </span>
+              ))}
+              <button className="rounded-lg px-sm py-1 text-xs font-semibold text-text-muted transition hover:bg-soft-gray hover:text-prime-black" onClick={resetFilters} type="button">
+                Reset Filter
+              </button>
+            </div>
+          ) : null}
+
+          <div className="flex flex-col gap-sm border-t border-soft-gray pt-md sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-sm text-xs">
             <span className="text-prime-black/50">Tampilkan Data:</span>
             <select
               className="rounded border border-prime-black/10 bg-white px-sm py-xs text-xs focus:outline-none"
               onChange={(event) => {
                 setPage(1);
-                setPerPage(Number(event.target.value) as 10 | 20 | 50 | 100);
+                setPerPage(Number(event.target.value) as 25 | 50 | 100);
               }}
               value={perPage}
             >
-              <option value={10}>10 Baris</option>
-              <option value={20}>20 Baris</option>
+              <option value={25}>25 Baris</option>
               <option value={50}>50 Baris</option>
               <option value={100}>100 Baris</option>
             </select>
@@ -316,7 +350,7 @@ export function PropertyTableShell({ canCreate }: PropertyTableShellProps): Reac
         </div>
       </section>
 
-      {error ? <p className="rounded-xl border border-accent-red bg-red-50 px-md py-sm text-body-sm text-accent-red">{error}</p> : null}
+      {error ? <p className="rounded-lg border border-accent-red bg-accent-red-soft px-md py-sm text-body-sm text-accent-red">{error}</p> : null}
 
       <section className="table-shell">
         <div className="flex flex-col gap-sm border-b border-border-default bg-white px-md py-sm sm:flex-row sm:items-center sm:justify-between">
@@ -324,7 +358,7 @@ export function PropertyTableShell({ canCreate }: PropertyTableShellProps): Reac
             <h2 className="text-title-md">Daftar Properti Utama</h2>
             <p className="text-caption text-text-muted">Kelola ruko dan villa aktif. Penambahan dan penghapusan data membutuhkan hak akses penuh.</p>
           </div>
-          <span className="status-badge status-badge-warning w-fit">{isLoading ? "Loading" : `${properties.length} rows`}</span>
+          <span className="status-badge status-badge-warning w-fit">{isLoading ? "Memuat" : `${properties.length} baris`}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="data-table">

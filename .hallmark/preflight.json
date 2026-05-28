@@ -1,0 +1,15 @@
+{
+  "date": "2026-05-28",
+  "fontStack": "Geist + Geist Mono via next/font, Inter fallback in Tailwind",
+  "palette": "Prime black, accent gold, accent red, neutral white, soft gray",
+  "motion": "motion-cut; no motion dependency installed",
+  "spacing": "4/8/12/16/24/32/48/64 px scale",
+  "framework": "Next.js App Router 16.2.6",
+  "preserve": [
+    "font stack",
+    "Prime Property palette",
+    "compact spacing scale",
+    "route and component boundaries",
+    "auth/API/database behavior"
+  ]
+}

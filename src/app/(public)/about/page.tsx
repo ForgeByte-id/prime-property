@@ -17,7 +17,7 @@ export default function AboutPage(): React.ReactElement {
     <>
       <section className="bg-prime-black px-lg py-section text-on-dark">
         <div className="mx-auto max-w-container">
-          <p className="inline-flex rounded-full border border-white/10 bg-white/5 px-sm py-xs text-caption font-semibold uppercase text-accent-gold backdrop-blur-md">
+          <p className="inline-flex rounded-full border border-white/10 bg-white/5 px-sm py-xs text-caption font-semibold text-accent-gold">
             Tentang Prime Property
           </p>
           <h1 className="mt-sm max-w-4xl text-display-lg text-on-dark">
@@ -65,7 +65,7 @@ export default function AboutPage(): React.ReactElement {
       <section className="bg-soft-gray px-lg py-section">
         <div className="mx-auto max-w-container">
           <div className="mb-lg max-w-3xl">
-            <p className="text-caption font-semibold uppercase text-accent-gold">
+            <p className="text-caption font-semibold text-accent-gold">
               Standar Kerja
             </p>
             <h2 className="mt-sm text-display-md">

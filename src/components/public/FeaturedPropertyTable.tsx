@@ -31,7 +31,7 @@ export function FeaturedPropertyTable({
               <Building2 aria-hidden="true" size={20} />
             </span>
             <div className="flex flex-col items-end gap-xs">
-              {property.badge ? <span className="badge-red">{property.badge}</span> : null}
+              {property.badge ? <span className="badge-gold">{property.badge}</span> : null}
               <span className="badge-success">Tersedia</span>
             </div>
           </div>

@@ -36,20 +36,22 @@ export function PublicHeader(): React.ReactElement {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border-default bg-surface-card/90 backdrop-blur-md">
-      <div className="mx-auto flex h-[72px] max-w-container items-center justify-between px-lg">
+    <header className="sticky top-0 z-40 border-b border-border-default bg-surface-card/95 backdrop-blur-md shadow-sm">
+      <div className="mx-auto flex h-[72px] max-w-container items-center justify-between px-md sm:px-lg">
         <Link
-          className="flex items-center gap-sm rounded-xl bg-logo-surface px-sm py-xs text-title-md"
+          className="flex items-center gap-sm rounded-lg bg-logo-surface px-xs py-xs text-title-md"
           href="/"
           onClick={closeMobileMenu}
         >
           <Image
             className="h-auto w-[132px]"
-            src="/logo.png"
+            src="/logo-wordmark-640.png"
             alt="Prime Property"
             width={264}
             height={88}
-            priority
+            loading="eager"
+            sizes="132px"
+            unoptimized
           />
         </Link>
 
@@ -61,7 +63,7 @@ export function PublicHeader(): React.ReactElement {
               <Link
                 aria-current={isActive ? "page" : undefined}
                 className={[
-                  "group relative inline-flex min-h-10 items-center rounded-xl px-md py-xs text-nav-link transition-all duration-200",
+                  "group relative inline-flex min-h-10 items-center rounded-lg px-md py-xs text-nav-link transition-all duration-200",
                   isActive
                     ? "bg-accent-gold/15 text-text-primary"
                     : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
@@ -97,7 +99,7 @@ export function PublicHeader(): React.ReactElement {
           <Link
             aria-current={isAgentLoginActive ? "page" : undefined}
             className={[
-              "hidden min-h-10 items-center gap-xs rounded-xl border px-md py-xs text-button-md transition-all duration-200 sm:inline-flex",
+              "hidden min-h-10 items-center gap-xs rounded-lg border px-md py-xs text-button-md transition-all duration-200 sm:inline-flex",
               isAgentLoginActive
                 ? "border-accent-gold bg-accent-gold text-prime-black shadow-sm"
                 : "border-accent-gold text-text-primary hover:bg-accent-gold hover:text-prime-black",
@@ -112,7 +114,7 @@ export function PublicHeader(): React.ReactElement {
             aria-expanded={isMobileMenuOpen}
             aria-label={isMobileMenuOpen ? "Tutup navigasi" : "Buka navigasi"}
             className={[
-              "inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border-default text-text-primary transition-all duration-200 md:hidden",
+              "inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border-default text-text-primary transition-all duration-200 md:hidden",
               isMobileMenuOpen
                 ? "bg-accent-gold text-prime-black"
                 : "bg-transparent hover:bg-surface-muted",
@@ -169,7 +171,7 @@ export function PublicHeader(): React.ReactElement {
                 <Link
                   aria-current={isActive ? "page" : undefined}
                   className={[
-                    "relative overflow-hidden rounded-xl border px-md py-sm text-body-sm font-semibold transition-all duration-200",
+                    "relative overflow-hidden rounded-lg border px-md py-sm text-body-sm font-semibold transition-all duration-200",
                     isActive
                       ? "border-accent-gold bg-accent-gold text-prime-black shadow-sm"
                       : "border-transparent text-text-primary hover:border-border-default hover:bg-surface-muted",
@@ -202,7 +204,7 @@ export function PublicHeader(): React.ReactElement {
             <Link
               aria-current={isAgentLoginActive ? "page" : undefined}
               className={[
-                "mt-sm inline-flex min-h-11 items-center justify-center gap-xs rounded-xl border px-md py-sm text-body-sm font-semibold transition-all duration-200",
+                "mt-sm inline-flex min-h-11 items-center justify-center gap-xs rounded-lg border px-md py-sm text-body-sm font-semibold transition-all duration-200",
                 isAgentLoginActive
                   ? "border-accent-gold bg-accent-gold text-prime-black shadow-sm"
                   : "border-accent-gold text-text-primary hover:bg-accent-gold hover:text-prime-black",

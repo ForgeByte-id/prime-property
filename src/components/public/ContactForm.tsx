@@ -58,7 +58,7 @@ export function ContactForm(): React.ReactElement {
       {status === "error" ? (
         <p className="mt-md text-body-sm text-accent-red">Pesan gagal dikirim. Periksa input Anda.</p>
       ) : null}
-      <button className="btn-primary mt-lg gap-xs" type="submit">
+      <button className="btn-primary mt-lg w-full gap-xs sm:w-auto" type="submit">
         <Send aria-hidden="true" size={17} />
         <span>Kirim Pesan</span>
       </button>

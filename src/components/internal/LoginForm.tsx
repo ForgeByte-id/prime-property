@@ -46,7 +46,7 @@ export function LoginForm(): React.ReactElement {
       onSubmit={handleSubmit}
     >
       <div className="mb-lg">
-        <p className="section-kicker">Login Agent</p>
+        <p className="section-kicker">Portal Agent</p>
         <h1 className="mt-xs text-display-md text-text-primary">Masuk ke Portal</h1>
         <p className="mt-xs text-body-sm text-text-secondary">
           Gunakan email dan password akun internal.
@@ -100,7 +100,7 @@ export function LoginForm(): React.ReactElement {
       </div>
 
       {error ? (
-        <div className="mt-md rounded-xl border border-accent-red bg-red-50 px-md py-sm text-body-sm text-accent-red">
+        <div className="mt-md rounded-lg border border-accent-red bg-accent-red-soft px-md py-sm text-body-sm text-accent-red">
           {error}
         </div>
       ) : null}

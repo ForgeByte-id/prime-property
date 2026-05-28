@@ -34,7 +34,7 @@ export async function InternalShell({
       <ToastBridge />
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-accent-gold/10 bg-prime-black text-on-dark md:flex">
         <div className="flex items-center gap-sm border-b border-white/10 p-md">
-          <div className="flex h-9 w-9 items-center justify-center rounded bg-white shadow-md">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-md">
             <Image
               alt="Prime Property"
               className="h-7 w-7 object-contain"
@@ -83,7 +83,7 @@ export async function InternalShell({
         <div className="border-t border-white/10 bg-black/10 p-md">
           <div className="flex items-center justify-between gap-sm">
             <div className="flex min-w-0 items-center gap-sm">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-accent-gold text-xs font-bold text-prime-black">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold text-xs font-bold text-prime-black">
                 {(user?.email ?? "A").slice(0, 2).toUpperCase()}
               </div>
               <div className="min-w-0">
@@ -93,7 +93,7 @@ export async function InternalShell({
             </div>
             <form action="/api/auth/logout" method="post">
               <input name="csrfToken" type="hidden" value={csrfToken} />
-              <button className="rounded p-xs text-accent-red transition hover:bg-accent-red/10" title="Logout" type="submit">
+                <button className="rounded-lg p-xs text-accent-red transition hover:bg-accent-red/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-gold" title="Logout" type="submit">
                 <LogOut aria-hidden="true" size={16} />
               </button>
             </form>
@@ -105,17 +105,17 @@ export async function InternalShell({
         <header className="sticky top-0 z-30 border-b border-prime-black/5 bg-white px-md py-sm shadow-sm sm:px-lg">
           <div className="mb-sm flex items-center justify-between md:hidden">
             <Link className="flex items-center gap-xs" href="/agent/dashboard">
-              <span className="flex h-7 w-7 items-center justify-center rounded bg-accent-gold text-xs font-black text-prime-black">P</span>
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent-gold text-xs font-black text-prime-black">P</span>
               <span className="text-caption font-bold tracking-[0.18em]">PRIME</span>
             </Link>
           </div>
           <nav className="mb-sm flex gap-xs overflow-x-auto md:hidden">
-            <Link className="rounded bg-prime-black px-sm py-xs text-xs font-semibold text-accent-gold" href="/agent/dashboard">
+            <Link className="rounded-lg bg-prime-black px-sm py-xs text-xs font-semibold text-accent-gold" href="/agent/dashboard">
               Listing
             </Link>
             {user?.role === "superadmin"
               ? superadminLinks.map((item) => (
-                  <Link className="rounded bg-soft-gray px-sm py-xs text-xs font-semibold text-prime-black" href={item.href} key={item.href}>
+                  <Link className="rounded-lg bg-soft-gray px-sm py-xs text-xs font-semibold text-prime-black" href={item.href} key={item.href}>
                     {item.label}
                   </Link>
                 ))
@@ -140,7 +140,7 @@ export async function InternalShell({
               </div>
               <form action="/api/auth/logout" method="post">
                 <input name="csrfToken" type="hidden" value={csrfToken} />
-                <button className="flex items-center gap-xs rounded px-sm py-xs text-body-sm font-semibold text-prime-black transition hover:bg-soft-gray" type="submit">
+                <button className="flex items-center gap-xs rounded-lg px-sm py-xs text-body-sm font-semibold text-prime-black transition hover:bg-soft-gray focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-gold" type="submit">
                   <LogOut aria-hidden="true" size={16} />
                   Logout
                 </button>

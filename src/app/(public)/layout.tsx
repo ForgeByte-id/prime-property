@@ -13,7 +13,7 @@ export default function PublicLayout({
     <div className="min-h-screen bg-background text-text-primary">
       <PublicHeader />
 
-      <main className="public-page-animate">
+      <main>
         {children}
       </main>
 

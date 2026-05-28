@@ -1933,29 +1933,43 @@ log("info", "API call", { apiKey: process.env.SECRET_KEY }); // 🚫
 
 ## 📋 CHECKLIST SEBELUM PRODUCTION
 
-- [ ] TypeScript strict mode enabled
-- [ ] All route handlers have type signatures
-- [ ] All API routes check authorization at backend
-- [ ] Session cookie is httpOnly + Secure + SameSite=Lax
-- [ ] Password hashed with bcrypt cost ≥10
-- [ ] CSRF protection on all mutations
-- [ ] Rate limiting implemented (global, auth, contact)
-- [ ] Input validation with Zod on all endpoints
-- [ ] Output HTML-escaped (default React behavior)
-- [ ] SQL injection prevented (using ORM/parameterized queries)
-- [ ] Soft delete implemented (no hard deletes)
-- [ ] Audit logging records all mutations
-- [ ] Error messages don't leak sensitive info
-- [ ] Environment variables not committed
-- [ ] Database indexes created for performance
-- [ ] Tests pass (unit, integration, security)
-- [ ] Lighthouse score ≥85
-- [ ] Responsive tested on mobile/tablet/desktop
-- [ ] README includes setup instructions
-- [ ] Demo credentials provided
-- [ ] HTTPS enabled in production
+- [x] TypeScript strict mode enabled
+- [x] All route handlers have type signatures
+- [x] All API routes check authorization at backend
+- [x] Session cookie is httpOnly + Secure + SameSite=Lax
+- [x] Password hashed with bcrypt cost ≥10
+- [x] CSRF protection on all mutations
+- [x] Rate limiting implemented (global, auth, contact)
+- [x] Input validation with Zod on all endpoints
+- [x] Output HTML-escaped (default React behavior)
+- [x] SQL injection prevented (using ORM/parameterized queries)
+- [x] Soft delete implemented (no hard deletes)
+- [x] Audit logging records all mutations
+- [x] Error messages don't leak sensitive info
+- [x] Environment variables not committed
+- [x] Database indexes created for performance
+- [x] Tests pass (unit, integration, security)
+- [x] Lighthouse score ≥85
+- [x] Responsive tested on mobile/tablet/desktop
+- [x] README includes setup instructions
+- [x] Demo credentials provided
+- [x] HTTPS enabled in production
 
 ---
+
+## Clarification Rule
+
+If my instruction is ambiguous, incomplete, or could be interpreted in multiple ways, ask a clarification question before making code changes.
+
+Do not assume major product, design, business logic, API, database, or authentication decisions when the requirement is unclear.
+
+You may proceed without asking only when:
+
+- the change is clearly cosmetic or low-risk,
+- the intent is already obvious from `PRD.md`, `SRS.md`, `get-design.md`, or existing code patterns,
+- or the task is explicitly scoped by file/path/component.
+
+When asking for clarification, keep the question short and include the specific decision that needs confirmation.
 
 **End of AGENTS.md**
 

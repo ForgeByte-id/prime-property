@@ -45,7 +45,7 @@ export function ThemeToggle(): React.ReactElement {
   return (
     <button
       aria-label={theme === "light" ? "Aktifkan mode gelap" : "Aktifkan mode terang"}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border-default text-text-primary"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border-default text-text-primary transition hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-gold"
       onClick={toggleTheme}
       type="button"
     >
