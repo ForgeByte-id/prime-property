@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://prime-property.local"),
+  metadataBase: new URL("https://prime-property-fawn.vercel.app"),
   title: {
     default: "Prime Property",
     template: "%s | Prime Property",

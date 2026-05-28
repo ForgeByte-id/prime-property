@@ -36,10 +36,10 @@ export function PublicHeader(): React.ReactElement {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border-default bg-surface-card/95 backdrop-blur-md shadow-sm">
-      <div className="mx-auto flex h-[72px] max-w-container items-center justify-between px-md sm:px-lg">
+    <header className="sticky top-0 z-40 border-b border-border-default bg-surface-card/94 shadow-sm backdrop-blur-md">
+      <div className="mx-auto grid h-[76px] max-w-wide grid-cols-[auto_1fr_auto] items-center gap-sm px-md sm:px-lg lg:px-xl">
         <Link
-          className="flex items-center gap-sm rounded-lg bg-logo-surface px-xs py-xs text-title-md"
+          className="flex min-w-0 items-center gap-sm rounded-lg bg-logo-surface px-xs py-xs text-title-md"
           href="/"
           onClick={closeMobileMenu}
         >
@@ -55,7 +55,7 @@ export function PublicHeader(): React.ReactElement {
           />
         </Link>
 
-        <nav className="hidden items-center gap-sm md:flex">
+        <nav className="hidden items-center justify-center gap-xs md:flex">
           {navItems.map((item) => {
             const isActive = isActivePath(pathname, item.href);
 
@@ -63,7 +63,7 @@ export function PublicHeader(): React.ReactElement {
               <Link
                 aria-current={isActive ? "page" : undefined}
                 className={[
-                  "group relative inline-flex min-h-10 items-center rounded-lg px-md py-xs text-nav-link transition-all duration-200",
+                  "group relative inline-flex min-h-10 items-center rounded-lg px-sm py-xs text-nav-link transition-all duration-200 lg:px-md",
                   isActive
                     ? "bg-accent-gold/15 text-text-primary"
                     : "text-text-secondary hover:bg-surface-muted hover:text-text-primary",
@@ -93,13 +93,13 @@ export function PublicHeader(): React.ReactElement {
           })}
         </nav>
 
-        <div className="flex items-center gap-sm">
+        <div className="flex items-center justify-end gap-sm">
           <ThemeToggle />
 
           <Link
             aria-current={isAgentLoginActive ? "page" : undefined}
             className={[
-              "hidden min-h-10 items-center gap-xs rounded-lg border px-md py-xs text-button-md transition-all duration-200 sm:inline-flex",
+              "hidden min-h-10 items-center gap-xs rounded-lg border px-sm py-xs text-button-md transition-all duration-200 sm:inline-flex lg:px-md",
               isAgentLoginActive
                 ? "border-accent-gold bg-accent-gold text-prime-black shadow-sm"
                 : "border-accent-gold text-text-primary hover:bg-accent-gold hover:text-prime-black",

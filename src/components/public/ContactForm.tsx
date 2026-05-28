@@ -25,7 +25,11 @@ export function ContactForm(): React.ReactElement {
   }
 
   return (
-    <form className="premium-card self-start p-lg sm:p-xl" onSubmit={handleSubmit}>
+    <form className="contact-form-card self-start" onSubmit={handleSubmit}>
+      <div className="mb-lg border-b border-border-default pb-md">
+        <p className="text-caption font-semibold text-accent-gold">Form Konsultasi</p>
+        <h2 className="mt-xs text-title-lg text-text-primary">Kirim kebutuhan awal.</h2>
+      </div>
       <div className="grid gap-md sm:grid-cols-2">
         <div>
           <label className="field-label" htmlFor="name">

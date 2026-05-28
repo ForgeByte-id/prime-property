@@ -37,6 +37,27 @@ interface PaginatedProperties {
   };
 }
 
+export interface PublicFeaturedProperty {
+  id: string;
+  namaProperty: string;
+  kawasan: string;
+  tipe: Property["tipe"];
+  priceRupiah: bigint;
+  status: Property["status"];
+  isFeatured: boolean;
+}
+
+interface PublicFeaturedPropertyRow {
+  id: string;
+  nama_property: string;
+  kawasan: string;
+  tipe: Property["tipe"];
+  price_rupiah: number | string;
+  status: Property["status"];
+  is_featured: boolean;
+  created_at: string;
+}
+
 const PROPERTY_COLUMNS = [
   "id",
   "nama_property",
@@ -59,6 +80,17 @@ const PROPERTY_COLUMNS = [
   "created_at",
   "updated_at",
   "deleted_at",
+].join(",");
+
+const PUBLIC_FEATURED_PROPERTY_COLUMNS = [
+  "id",
+  "nama_property",
+  "kawasan",
+  "tipe",
+  "price_rupiah",
+  "status",
+  "is_featured",
+  "created_at",
 ].join(",");
 
 function csv(value: string | undefined): string[] {
@@ -96,6 +128,18 @@ function toProperty(row: PropertyRow): Property {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     deletedAt: row.deleted_at,
+  };
+}
+
+function toPublicFeaturedProperty(row: PublicFeaturedPropertyRow): PublicFeaturedProperty {
+  return {
+    id: row.id,
+    namaProperty: row.nama_property,
+    kawasan: row.kawasan,
+    tipe: row.tipe,
+    priceRupiah: BigInt(row.price_rupiah),
+    status: row.status,
+    isFeatured: row.is_featured,
   };
 }
 
@@ -194,6 +238,50 @@ export async function listProperties(filters: PropertyQueryInput): Promise<Pagin
       totalPages: Math.ceil(total / perPage),
     },
   };
+}
+
+export async function listPublicFeaturedProperties(
+  limit: number = 6,
+): Promise<PublicFeaturedProperty[]> {
+  const supabase = createSupabaseAdminClient();
+  const safeLimit = Math.min(Math.max(limit, 1), 6);
+
+  const { data: featuredRows, error: featuredError } = await supabase
+    .from("properties")
+    .select(PUBLIC_FEATURED_PROPERTY_COLUMNS)
+    .eq("status", "in_stock")
+    .eq("is_featured", true)
+    .is("deleted_at", null)
+    .order("created_at", { ascending: false })
+    .limit(safeLimit)
+    .returns<PublicFeaturedPropertyRow[]>();
+
+  if (featuredError) throw new Error(featuredError.message);
+
+  const featured = featuredRows ?? [];
+  if (featured.length >= safeLimit) {
+    return featured.map(toPublicFeaturedProperty);
+  }
+
+  const existingIds = featured.map((property) => property.id);
+  let fallbackQuery = supabase
+    .from("properties")
+    .select(PUBLIC_FEATURED_PROPERTY_COLUMNS)
+    .eq("status", "in_stock")
+    .is("deleted_at", null)
+    .order("created_at", { ascending: false })
+    .limit(safeLimit - featured.length);
+
+  if (existingIds.length > 0) {
+    fallbackQuery = fallbackQuery.not("id", "in", `(${existingIds.join(",")})`);
+  }
+
+  const { data: fallbackRows, error: fallbackError } =
+    await fallbackQuery.returns<PublicFeaturedPropertyRow[]>();
+
+  if (fallbackError) throw new Error(fallbackError.message);
+
+  return [...featured, ...(fallbackRows ?? [])].map(toPublicFeaturedProperty);
 }
 
 export async function getPropertyById(id: string): Promise<Property | null> {

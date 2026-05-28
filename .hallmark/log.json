@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-28",
+    "scope": "public",
+    "genre": "modern-minimal",
+    "macrostructure": "Split Studio",
+    "theme": "Quiet/Prime",
+    "enrichment": "CSS proof panels",
+    "nav": "N9-adapted",
+    "footer": "Ft5",
+    "brief": "Prime Property competition-grade public website redesign"
+  },
+  {
+    "date": "2026-05-28",
     "scope": "app",
     "genre": "modern-minimal",
     "macrostructure": "Workbench",

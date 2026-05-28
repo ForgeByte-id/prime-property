@@ -1,46 +1,86 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 export function PublicFooter(): React.ReactElement {
   return (
-    <footer className="border-t border-white/10 bg-prime-black px-md py-xl text-on-dark sm:px-lg">
-      <div className="section-container grid gap-lg md:grid-cols-[minmax(280px,1.25fr)_minmax(280px,1fr)_minmax(160px,0.65fr)] md:items-start">
-        <div className="copy-measure">
-          <span className="inline-flex rounded-lg bg-logo-surface px-md py-sm">
-            <Image
-              className="h-auto w-[144px]"
-              src="/logo-wordmark-640.png"
-              alt="Prime Property"
-              width={288}
-              height={96}
-              sizes="144px"
-              unoptimized
-            />
-          </span>
-          <p className="on-dark-copy mt-sm text-body-sm">
-            Konsultan properti modern dengan data listing yang rapi, transparan, dan siap
-            ditindaklanjuti.
-          </p>
-        </div>
-        <div className="on-dark-copy space-y-sm border-white/10 text-body-sm md:border-l md:pl-lg">
-          <p className="flex items-center gap-sm">
-            <Phone aria-hidden="true" className="text-accent-gold" size={16} />
-            +62 812 0000 0000
-          </p>
-          <p className="flex items-center gap-sm">
-            <Mail aria-hidden="true" className="text-accent-gold" size={16} />
-            halo@primeproperty.id
-          </p>
-          <p className="flex items-center gap-sm">
-            <MapPin aria-hidden="true" className="text-accent-gold" size={16} />
-            Jakarta, Indonesia
-          </p>
-        </div>
-        <div className="on-dark-copy flex flex-col gap-xs border-t border-white/10 pt-md text-body-sm md:border-t-0 md:pt-0">
-          <Link href="/about">Tentang Kami</Link>
-          <Link href="/contact">Kontak</Link>
-          <Link href="/agent/login">Login Agent</Link>
+    <footer className="border-t border-white/10 bg-prime-black px-md py-xl text-on-dark sm:px-lg sm:py-section">
+      <div className="section-container">
+        <p className="max-w-4xl text-[clamp(2rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-on-dark">
+          Properti bernilai tinggi membutuhkan keputusan yang rapi.
+        </p>
+
+        <div className="mt-xl grid gap-lg border-t border-white/10 pt-lg md:grid-cols-2 lg:grid-cols-[minmax(260px,1fr)_minmax(320px,1fr)_minmax(180px,0.55fr)] lg:items-start">
+          <div className="min-w-0">
+            <span className="inline-flex rounded-lg bg-logo-surface px-md py-sm">
+              <Image
+                className="h-auto w-[144px]"
+                src="/logo-wordmark-640.png"
+                alt="Prime Property"
+                width={288}
+                height={96}
+                sizes="144px"
+                unoptimized
+              />
+            </span>
+
+            <p className="on-dark-copy mt-sm max-w-sm text-body-sm leading-relaxed">
+              Konsultan properti modern dengan data listing yang rapi,
+              transparan, dan siap ditindaklanjuti.
+            </p>
+          </div>
+
+          <div className="grid min-w-0 gap-sm text-body-sm text-white/74">
+            <p className="flex min-w-0 items-start gap-sm leading-relaxed">
+              <Phone
+                aria-hidden="true"
+                className="mt-0.5 shrink-0 text-accent-gold"
+                size={16}
+              />
+              <span className="min-w-0">+62 812 0000 0000</span>
+            </p>
+
+            <p className="flex min-w-0 items-start gap-sm leading-relaxed">
+              <Mail
+                aria-hidden="true"
+                className="mt-0.5 shrink-0 text-accent-gold"
+                size={16}
+              />
+              <span className="min-w-0 break-words">
+                halo@primeproperty.id
+              </span>
+            </p>
+
+            <p className="flex min-w-0 items-start gap-sm leading-relaxed">
+              <MapPin
+                aria-hidden="true"
+                className="mt-0.5 shrink-0 text-accent-gold"
+                size={16}
+              />
+              <span className="min-w-0">Jakarta, Indonesia</span>
+            </p>
+          </div>
+
+          <nav
+            aria-label="Footer navigation"
+            className="flex min-w-0 flex-col items-start gap-xs text-body-sm text-white/74 md:col-span-2 lg:col-span-1"
+          >
+            <Link className="footer-link" href="/about">
+              Tentang Kami
+            </Link>
+
+            <Link className="footer-link" href="/contact">
+              Kontak
+            </Link>
+
+            <Link
+              className="footer-link inline-flex items-center gap-xs text-accent-gold"
+              href="/agent/login"
+            >
+              Login Agent
+              <ArrowRight aria-hidden="true" className="shrink-0" size={14} />
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
