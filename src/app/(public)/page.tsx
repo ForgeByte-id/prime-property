@@ -138,7 +138,7 @@ export default function HomePage(): React.ReactElement {
         <section className="bg-surface-card px-md py-xl sm:px-lg sm:py-section">
           <div className="section-container split-studio">
             <div className="content-measure">
-              <p className="section-kicker">Mengapa Prime</p>
+              <p className="section-kicker">Mengapa Prime ?</p>
               <h2 className="section-heading mt-sm">
                 Bukan sekadar listing. Setiap opsi dibuat mudah dibandingkan.
               </h2>
